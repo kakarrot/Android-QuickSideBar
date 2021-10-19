@@ -1,4 +1,7 @@
-apply plugin: 'com.android.library'
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
 
 version = "1.0.3"
 
@@ -26,4 +29,18 @@ android {
 }
 
 dependencies {
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.kakarrot'
+                artifactId = 'sidebar'
+                version = '1.0'
+            }
+        }
+    }
 }
