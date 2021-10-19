@@ -9,8 +9,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.blankj.utilcode.util.LogUtils;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,7 +81,6 @@ public class QuickSideBarView extends View {
             float xPos = mWidth * 0.5f;
             float yPos = mItemHeight * i + (int) ((mItemHeight - rect.height()) * 0.5) + mItemStartY;
 
-            LogUtils.e("选中的是：" + mChoose + ", 绘制的是："+i);
             if (i == mChoose) {
                 //选中背景
                 mPaint.setColor(mTextColorChoose);
@@ -112,7 +109,6 @@ public class QuickSideBarView extends View {
             }
             mChoose = -1;
             postInvalidate();
-            LogUtils.e("打印 ***********************");
         }
     };
 
@@ -134,7 +130,6 @@ public class QuickSideBarView extends View {
                         //计算位置
                         mPaint.getTextBounds(mLetters.get(mChoose), 0, mLetters.get(mChoose).length(), rect);
                         float yPos = mItemHeight * mChoose + (int) ((mItemHeight - rect.height()) * 0.5) + mItemStartY;
-                        LogUtils.e("当前选中：" + mChoose);
                         listener.onLetterChanged(mLetters.get(mChoose), mChoose, yPos);
                     }
                 }

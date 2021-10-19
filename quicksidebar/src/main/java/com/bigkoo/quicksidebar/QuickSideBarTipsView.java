@@ -1,6 +1,7 @@
 package com.bigkoo.quicksidebar;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.blankj.utilcode.util.SizeUtils;
 
 /**
  * Created by Sai on 16/3/26.
@@ -42,7 +42,7 @@ public class QuickSideBarTipsView extends RelativeLayout {
         mTipsView.setTextSize(20);
         mTipsView.setGravity(Gravity.CENTER_VERTICAL);
         mTipsView.setTextColor(textColor);
-        mTipsView.setPadding(SizeUtils.dp2px(10), 0, 0, 0);
+        mTipsView.setPadding(dp2px(10), 0, 0, 0);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         addView(mTipsView, layoutParams);
         mTipsView.setVisibility(View.GONE);
@@ -56,6 +56,11 @@ public class QuickSideBarTipsView extends RelativeLayout {
             mTipsView.setText(text);
             mTipsView.setVisibility(View.VISIBLE);
         });
+    }
+
+    public static int dp2px(final float dpValue) {
+        final float scale = Resources.getSystem().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
 }

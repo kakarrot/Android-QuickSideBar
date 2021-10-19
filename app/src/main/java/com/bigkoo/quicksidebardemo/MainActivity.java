@@ -16,7 +16,6 @@ import com.bigkoo.quicksidebar.QuickSideBarView;
 import com.bigkoo.quicksidebar.OnQuickSideBarTouchListener;
 import com.bigkoo.quicksidebardemo.constants.DataConstants;
 import com.bigkoo.quicksidebardemo.model.City;
-import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -80,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements OnQuickSideBarTou
 
     @Override
     public void onLetterChanged(String letter, int position, float y) {
-        LogUtils.e("当前显示的字母：" + letter);
         quickSideBarTipsView.setText(letter, position, y);
         //有此key则获取位置并滚动到该位置
         if(letters.containsKey(letter)) {
