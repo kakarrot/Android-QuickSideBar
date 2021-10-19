@@ -1,6 +1,6 @@
 package com.bigkoo.quicksidebardemo;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bigkoo.quicksidebardemo.model.City;
 

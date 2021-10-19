@@ -2,9 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#210666">
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -14,6 +15,9 @@
         android:id="@+id/quickSideBarTipsView"
         android:layout_width="@dimen/height_quicksidebartips"
         android:layout_height="match_parent"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_toStartOf="@+id/quickSideBarView"
         android:layout_toLeftOf="@+id/quickSideBarView"
         app:sidebarBackgroundColor="@color/colorPrimary"
         app:sidebarTextColor="@android:color/white"
@@ -24,10 +28,15 @@
         android:id="@id/quickSideBarView"
         android:layout_width="20dp"
         android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:background="@android:color/black"
         android:layout_marginTop="45dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="45dp"
         app:sidebarItemHeight="@dimen/height_quicksidebaritem"
-        app:sidebarTextColor="@android:color/black"
+        app:sidebarTextColor="#EFE8FE"
         app:sidebarTextColorChoose="@color/colorPrimary"
         app:sidebarTextSize="@dimen/textSize_quicksidebar"
         app:sidebarTextSizeChoose="@dimen/textSize_quicksidebar_choose" />

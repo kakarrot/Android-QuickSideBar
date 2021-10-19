@@ -1,31 +1,30 @@
 package com.bigkoo.quicksidebardemo;
 
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bigkoo.quicksidebar.QuickSideBarTipsView;
 import com.bigkoo.quicksidebar.QuickSideBarView;
-import com.bigkoo.quicksidebar.listener.OnQuickSideBarTouchListener;
+import com.bigkoo.quicksidebar.OnQuickSideBarTouchListener;
 import com.bigkoo.quicksidebardemo.constants.DataConstants;
 import com.bigkoo.quicksidebardemo.model.City;
+import com.blankj.utilcode.util.LogUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
-import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.lang.reflect.Type;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnQuickSideBarTouchListener {
     RecyclerView recyclerView;
@@ -48,9 +47,6 @@ public class MainActivity extends AppCompatActivity implements OnQuickSideBarTou
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        // Add the sticky headers decoration
-        CityListWithHeadersAdapter adapter = new CityListWithHeadersAdapter();
-
         //GSON解释出来
         Type listType = new TypeToken<LinkedList<City>>(){}.getType();
         Gson gson = new Gson();
@@ -71,11 +67,11 @@ public class MainActivity extends AppCompatActivity implements OnQuickSideBarTou
 
         //不自定义则默认26个字母
         quickSideBarView.setLetters(customLetters);
-        adapter.addAll(cities);
-        recyclerView.setAdapter(adapter);
 
-        final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
-        recyclerView.addItemDecoration(headersDecor);
+        // Add the sticky headers decoration
+        CityListWithHeadersAdapter adapter = new CityListWithHeadersAdapter(cities);
+
+        recyclerView.setAdapter(adapter);
 
         // Add decoration for dividers between list items
         recyclerView.addItemDecoration(new DividerDecoration(this));
@@ -84,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements OnQuickSideBarTou
 
     @Override
     public void onLetterChanged(String letter, int position, float y) {
+        LogUtils.e("当前显示的字母：" + letter);
         quickSideBarTipsView.setText(letter, position, y);
         //有此key则获取位置并滚动到该位置
         if(letters.containsKey(letter)) {
@@ -97,8 +94,14 @@ public class MainActivity extends AppCompatActivity implements OnQuickSideBarTou
         quickSideBarTipsView.setVisibility(touching? View.VISIBLE:View.INVISIBLE);
     }
 
-    private class CityListWithHeadersAdapter extends CityListAdapter<RecyclerView.ViewHolder>
-            implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
+    private class CityListWithHeadersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private final List<City> mList;
+
+        public CityListWithHeadersAdapter(List<City> list) {
+            mList = list;
+        }
+
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
@@ -110,34 +113,12 @@ public class MainActivity extends AppCompatActivity implements OnQuickSideBarTou
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             TextView textView = (TextView) holder.itemView;
-            textView.setText(getItem(position).getCityName());
+            textView.setText(mList.get(position).getCityName());
         }
 
         @Override
-        public long getHeaderId(int position) {
-            return getItem(position).getFirstLetter().charAt(0);
-        }
-
-        @Override
-        public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.view_header, parent, false);
-            return new RecyclerView.ViewHolder(view) {
-            };
-        }
-
-        @Override
-        public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
-            TextView textView = (TextView) holder.itemView;
-            textView.setText(String.valueOf(getItem(position).getFirstLetter()));
-            holder.itemView.setBackgroundColor(getRandomColor());
-        }
-
-        private int getRandomColor() {
-            SecureRandom rgen = new SecureRandom();
-            return Color.HSVToColor(150, new float[]{
-                    rgen.nextInt(359), 1, 1
-            });
+        public int getItemCount() {
+            return 0;
         }
 
     }

@@ -1,4 +1,4 @@
-package com.bigkoo.quicksidebar.listener;
+package com.bigkoo.quicksidebar;
 
 /**
  * Created by Sai on 16/3/25.
