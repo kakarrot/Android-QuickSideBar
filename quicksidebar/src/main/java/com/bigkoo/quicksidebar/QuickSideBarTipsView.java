@@ -45,12 +45,12 @@ public class QuickSideBarTipsView extends RelativeLayout {
         mTipsView.setPadding(dp2px(10), 0, 0, 0);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         addView(mTipsView, layoutParams);
-        mTipsView.setVisibility(View.GONE);
+        mTipsView.setVisibility(View.INVISIBLE);
     }
 
     public void setText(String text, int position, float y) {
         LayoutParams layoutParams = (LayoutParams) mTipsView.getLayoutParams();
-        layoutParams.topMargin = (int) y + 68;
+        layoutParams.topMargin = (int) y - mTipsView.getHeight() / 2 - dp2px(6);
         mTipsView.setLayoutParams(layoutParams);
         mTipsView.post(() -> {
             mTipsView.setText(text);
