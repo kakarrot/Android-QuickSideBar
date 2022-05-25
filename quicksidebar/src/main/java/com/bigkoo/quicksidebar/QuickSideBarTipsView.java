@@ -4,11 +4,16 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.LayoutDirection;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.Locale;
 
 
 /**
@@ -39,10 +44,10 @@ public class QuickSideBarTipsView extends RelativeLayout {
         }
         mTipsView = new TextView(context);
         mTipsView.setBackgroundResource(R.drawable.ic_bg_letter_tips);
-        mTipsView.setTextSize(20);
+        mTipsView.setTextSize(18);
         mTipsView.setGravity(Gravity.CENTER_VERTICAL);
         mTipsView.setTextColor(textColor);
-        mTipsView.setPadding(dp2px(10), 0, 0, 0);
+        mTipsView.setGravity(Gravity.CENTER);
         LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         addView(mTipsView, layoutParams);
         mTipsView.setVisibility(View.INVISIBLE);
